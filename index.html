@@ -1,0 +1,1226 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>keda · туры от Кати</title>
+<meta name="description" content="Туры, которые Катя проверила сама: Египет, Турция, ОАЭ, Вьетнам, Шри-Ланка, Малайзия.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#EDF2F2">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="keda">
+<meta property="og:title" content="keda · туры от Кати">
+<meta property="og:description" content="Отдых для гедонистов. Туры, которые Катя проверила сама.">
+<meta property="og:image" content="https://emorozoff.github.io/keda/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://emorozoff.github.io/keda/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@600;700;800&display=swap">
+<style>
+:root{
+  --paper:#EDF2F2; --card:#FFFFFF; --ink:#0E1A22; --ink-2:#33434C; --muted:#63747D; --line:#D4DEE0;
+  --sea:#0B7A86; --sea-2:#06545C; --sea-tint:#D9EDEE;
+  --signal:#FFC21A; --signal-ink:#231A00; --coral:#FF7A45;
+  --board:#10161B; --board-line:#232D35; --amber:#FFC247; --alert:#FF6B5E; --ok:#4BD394;
+  --r-lg:22px; --r-md:14px;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Onest",-apple-system,"Segoe UI",Roboto,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --g:16px; --tab-h:62px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font:16px/1.5 var(--f-body);color:var(--ink);background:#0B1318;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+body.locked{position:fixed;left:0;right:0;overflow:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:inherit}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+
+.app{position:relative;max-width:480px;min-height:100vh;margin:0 auto;background:var(--paper);padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom) + 8px);overflow-x:clip}
+@media (min-width:560px){
+  body{background:#0B1318 radial-gradient(1200px 700px at 50% -10%,#16414A 0,#0B1318 60%) fixed}
+  .app{box-shadow:0 0 0 1px rgba(255,255,255,.06),0 40px 120px rgba(0,0,0,.5)}
+}
+
+/* header */
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) var(--g) 10px;background:rgba(237,242,242,.88);-webkit-backdrop-filter:saturate(1.5) blur(14px);backdrop-filter:saturate(1.5) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.bar.scrolled{border-bottom-color:var(--line)}
+.logo{display:inline-flex;align-items:flex-start;gap:3px;font:800 23px/1 var(--f-display);letter-spacing:-.03em;text-decoration:none;color:var(--ink)}
+.logo sup{font:700 8.5px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--sea);margin-top:1px}
+.bar-sub{font-size:13px;color:var(--muted);white-space:nowrap}
+.icon-btn{margin-left:auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.icon-btn svg{width:20px;height:20px}
+
+/* stories row */
+.stories-row{display:flex;gap:12px;overflow-x:auto;padding:8px var(--g) 10px;scrollbar-width:none;scroll-snap-type:x proximity;scroll-padding-inline:var(--g)}
+.stories-row::-webkit-scrollbar{display:none}
+.story{flex:0 0 auto;width:70px;display:flex;flex-direction:column;align-items:center;gap:6px;scroll-snap-align:start}
+.story-ring{width:70px;height:70px;border-radius:50%;padding:2.5px;background:conic-gradient(from 210deg,var(--signal),var(--coral),#E0457B,var(--sea),var(--signal));transition:transform .2s}
+.story.seen .story-ring{background:#C3CFD2}
+.story-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--paper);background:#cdd8da}
+.story:active .story-ring{transform:scale(.93)}
+.story-label{font-size:12px;font-weight:500;max-width:76px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+
+/* hero */
+.hero{padding:4px var(--g) 0;display:grid;gap:18px}
+.hero-media{position:relative;margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:#C9D5D7}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,26,.25) 0,rgba(10,20,26,0) 22%,rgba(10,20,26,0) 45%,rgba(10,20,26,.82) 100%)}
+.hero-tag{position:absolute;top:14px;left:14px;z-index:1;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(10,20,26,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;font:700 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--signal);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,194,26,.7)}70%{box-shadow:0 0 0 9px rgba(255,194,26,0)}100%{box-shadow:0 0 0 0 rgba(255,194,26,0)}}
+.hero-over{position:absolute;left:18px;right:18px;bottom:20px;z-index:1;color:#fff}
+.hero-over .eyebrow{color:var(--signal)}
+h1{margin:0;font:700 29px/1.1 var(--f-display);letter-spacing:-.025em;text-wrap:balance}
+.lead{margin:0;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+.actions{display:grid;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 20px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;text-align:center;transition:transform .15s ease,background-color .2s,box-shadow .2s;user-select:none;-webkit-user-select:none}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:0 0 auto}
+.btn-signal{background:var(--signal);color:var(--signal-ink);box-shadow:0 8px 22px rgba(242,169,0,.32)}
+.btn-ghost{background:var(--card);border:1px solid var(--line)}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-sm{min-height:42px;padding:0 16px;border-radius:12px;font-size:14.5px}
+.facts{margin:0;display:grid;grid-template-columns:repeat(3,1fr);background:var(--card);border:1px solid var(--line);border-radius:var(--r-md)}
+.facts div{padding:14px 10px 13px 12px;border-left:1.5px dashed var(--line)}
+.facts div:first-child{border-left:0}
+.facts dt{font:700 24px/1 var(--f-display);color:var(--sea);letter-spacing:-.02em}
+.facts dd{margin:7px 0 0;font-size:12px;line-height:1.3;color:var(--muted)}
+
+/* sections */
+.sec{padding:44px var(--g) 0;scroll-margin-top:60px}
+.eyebrow{margin:0 0 8px;font:700 11px/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--sea)}
+h2{margin:0;font:700 25px/1.15 var(--f-display);letter-spacing:-.02em;text-wrap:balance}
+.sec-sub{margin:10px 0 0;color:var(--muted);font-size:15px}
+
+/* departure board */
+.chips{display:flex;gap:8px;overflow-x:auto;margin:16px calc(-1*var(--g)) 0;padding:2px var(--g);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:14px;font-weight:500;transition:background-color .15s,color .15s}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.board{margin-top:14px;background:var(--board);border-radius:var(--r-lg);padding:14px 10px 6px;color:#E6ECEE;box-shadow:0 20px 44px rgba(14,26,34,.22)}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 6px 12px;font:700 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase}
+.board-top .t{color:var(--amber);display:flex;align-items:center;gap:8px}
+.board-top .t svg{width:16px;height:16px}
+.board-clock{color:#8E9BA2}
+.board-head,.brow{display:grid;grid-template-columns:54px 38px minmax(0,1fr) auto;align-items:center;gap:8px}
+.board-head{padding:0 6px 8px;font:700 9.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#6E7C84}
+.brow{width:100%;padding:10px 6px;border-top:1px solid var(--board-line);font:500 13px/1.2 var(--f-mono);color:#EEF2F3;border-radius:8px;transition:background-color .15s}
+.brow:active{background:#18212A}
+.c-date small{display:block;margin-top:3px;font-size:10.5px;color:#7F8C93}
+.c-code{color:var(--amber);font-weight:700}
+.c-city{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-st{justify-self:end;padding:5px 7px;border-radius:6px;font-size:10.5px;font-weight:700;letter-spacing:.03em;background:rgba(75,211,148,.13);color:var(--ok);white-space:nowrap}
+.c-st.low{background:rgba(255,194,71,.15);color:var(--amber)}
+.c-st.out{background:rgba(255,107,94,.14);color:var(--alert)}
+.fl{display:inline-block;min-width:1ch;text-align:center}
+.fl.set{animation:settle .18s ease-out}
+@keyframes settle{0%{transform:perspective(80px) rotateX(-70deg);opacity:.4}100%{transform:none;opacity:1}}
+.board-empty{margin:0;padding:18px 6px 20px;font:500 13px/1.4 var(--f-mono);color:#8E9BA2}
+.board-more{width:100%;margin-top:10px;min-height:46px;border-radius:14px;border:1px dashed #B9C7CA;font-weight:600;font-size:15px;color:var(--ink-2)}
+
+/* passes */
+.passes{display:grid;gap:20px;margin-top:18px}
+.pass{position:relative;background:var(--card);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 1px 0 var(--line),0 14px 34px rgba(14,26,34,.08);cursor:pointer}
+.pass-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#C9D5D7}
+.pass-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.pass:hover .pass-media img{transform:scale(1.04)}}
+.pill{position:absolute;left:12px;top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12.5px;font-weight:600;color:var(--ink)}
+.pass-body{padding:16px 16px 0}
+.route{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px}
+.iata{display:block;font:800 25px/1 var(--f-display);letter-spacing:.01em}
+.city{display:block;margin-top:5px;font-size:12px;color:var(--muted)}
+.route .to{text-align:right}
+.flight{position:relative;display:flex;justify-content:center;font:500 10.5px/1 var(--f-mono);color:var(--muted);white-space:nowrap}
+.flight::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1.5px dashed #C7D3D6}
+.flight span{position:relative;display:inline-flex;align-items:center;gap:5px;padding:0 6px;background:var(--card)}
+.flight svg{width:14px;height:14px;color:var(--sea)}
+.pass-title{margin:14px 0 10px;font:600 19px/1.28 var(--f-body);text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.meta span{font-size:12.5px;line-height:1.2;padding:6px 9px;border-radius:8px;background:var(--paper);color:var(--ink-2)}
+.meta .hot{background:#FFF3CC;color:#6B4D00}
+.stub{position:relative;margin-top:16px;padding:14px 16px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:2px dashed var(--line)}
+.stub::before,.stub::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--paper)}
+.stub::before{left:-10px}.stub::after{right:-10px}
+.price{font:700 21px/1 var(--f-display);letter-spacing:-.02em;white-space:nowrap}
+.price small{display:block;margin-bottom:4px;font:500 12px/1 var(--f-body);letter-spacing:0;color:var(--muted)}
+
+/* quiz teaser */
+.teaser{position:relative;margin-top:0;padding:24px 20px 20px;border-radius:var(--r-lg);background:var(--sea);color:#fff;overflow:hidden}
+.teaser::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:34px solid rgba(255,255,255,.08)}
+.teaser .eyebrow{color:var(--signal)}
+.teaser h2{font-size:23px;position:relative;z-index:1}
+.teaser p{margin:10px 0 18px;color:rgba(255,255,255,.82);font-size:15px;position:relative;z-index:1}
+.teaser .btn{width:100%;position:relative;z-index:1}
+
+/* about */
+.about-photo{position:relative;margin:18px 0 0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:#C9D5D7}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.about-photo figcaption{position:absolute;left:12px;bottom:12px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.92);font:700 12px/1 var(--f-mono);letter-spacing:.02em}
+.about-text{margin-top:18px}
+.about-text p{margin:0 0 12px;color:var(--ink-2);font-size:16px}
+.steps{list-style:none;counter-reset:s;margin:22px 0 0;padding:0;display:grid;gap:10px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:start;padding:14px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+.steps li::before{content:counter(s);width:36px;height:36px;border-radius:50%;background:var(--signal);color:var(--signal-ink);display:grid;place-items:center;font:700 14px/1 var(--f-display)}
+.steps b{display:block;font-weight:600}
+.steps span{display:block;margin-top:2px;color:var(--muted);font-size:14px}
+
+/* footer */
+.foot{padding:44px var(--g) 28px;color:var(--muted);font-size:13.5px}
+.foot-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.foot a{color:var(--ink);font-weight:600;text-decoration:none}
+.demo{margin:16px 0 0;padding:12px 14px;border-radius:12px;border:1px dashed #BCCACD;line-height:1.45}
+
+/* tab bar */
+.tabbar{position:fixed;left:50%;bottom:0;z-index:40;transform:translateX(-50%);width:min(100%,480px);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.9);-webkit-backdrop-filter:saturate(1.5) blur(16px);backdrop-filter:saturate(1.5) blur(16px);border-top:1px solid var(--line)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;border-radius:12px;font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;text-align:center}
+.tab svg{width:24px;height:24px}
+.tab.on{color:var(--ink)}
+.tab-quiz{color:var(--ink)}
+.tab-quiz .qi{display:grid;place-items:center;width:30px;height:24px;border-radius:9px;background:var(--signal)}
+.tab-quiz .qi svg{width:18px;height:18px}
+
+/* overlays */
+.ov{position:fixed;inset:0;z-index:60;display:flex;justify-content:center;align-items:flex-end}
+.scrim{position:absolute;inset:0;background:rgba(6,12,16,.55);opacity:0;transition:opacity .3s}
+.ov.show .scrim{opacity:1}
+.panel{position:relative;width:min(100%,480px);height:calc(100% - 18px - env(safe-area-inset-top));display:flex;flex-direction:column;background:var(--paper);border-radius:24px 24px 0 0;overflow:hidden;transform:translateY(104%);transition:transform .46s cubic-bezier(.2,.9,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.2)}
+.ov.show .panel{transform:none}
+.panel-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.x{position:absolute;top:12px;right:12px;z-index:5;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(10,20,26,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff}
+.x svg{width:20px;height:20px}
+.x.light{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+
+/* tour sheet */
+.gal-wrap{position:relative}
+.gal{display:flex;width:100%;height:min(120vw,576px,60vh);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:#C9D5D7}
+.gal::-webkit-scrollbar{display:none}
+.gal img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:center;scroll-snap-stop:always}
+.dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.55);transition:width .25s,background-color .25s}
+.dots i.on{width:18px;background:#fff}
+.gal-code{position:absolute;top:14px;left:14px;padding:8px 11px;border-radius:999px;background:rgba(10,20,26,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;font:700 11px/1 var(--f-mono);letter-spacing:.08em}
+.ts{padding:20px var(--g) 28px}
+.ts h2{font-size:24px}
+.ts-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.ts-chips span{font-size:13px;padding:7px 10px;border-radius:9px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.quote{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;margin:22px 0 0;padding:16px;border-radius:var(--r-md);background:var(--sea-tint)}
+.quote img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.quote blockquote{margin:0;font-size:15.5px;line-height:1.5;color:var(--sea-2)}
+.quote figcaption{margin-top:6px;font:700 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sea)}
+.h3{margin:30px 0 12px;font:700 17px/1.2 var(--f-display);letter-spacing:-.01em}
+.days{list-style:none;margin:0;padding:0;position:relative}
+.days::before{content:"";position:absolute;left:5px;top:22px;bottom:22px;border-left:2px dotted #B8C7CA}
+.day{position:relative;padding-left:24px;margin-bottom:8px}
+.day::before{content:"";position:absolute;left:0;top:19px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid #9FB1B5;transition:background-color .2s,border-color .2s}
+.day:has(details[open])::before{background:var(--sea);border-color:var(--sea)}
+.day details{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md)}
+.day summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;cursor:pointer}
+.day summary::-webkit-details-marker{display:none}
+.day summary small{display:block;font:700 10.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sea);margin-bottom:5px}
+.day summary b{font-weight:600;font-size:16px;line-height:1.3}
+.day summary::after{content:"";flex:0 0 22px;height:22px;border-radius:50%;background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E1A22' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/12px no-repeat;transition:transform .25s}
+.day details[open] summary::after{transform:rotate(45deg)}
+.dd{padding:0 14px 14px;color:var(--ink-2);font-size:15px}
+.dd p{margin:0}
+.dd img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px;margin-top:12px}
+.lists{display:grid;gap:4px}
+.inc,.exc{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.inc li,.exc li{position:relative;padding-left:28px;font-size:15px;line-height:1.4}
+.inc li::before,.exc li::before{content:"";position:absolute;left:0;top:1px;width:19px;height:19px;border-radius:50%;background:var(--sea-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B7A86' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/11px no-repeat}
+.exc li{color:var(--muted)}
+.exc li::before{background:#E6ECED url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2363747D' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 12h12'/%3E%3C/svg%3E") center/11px no-repeat}
+.season{margin-top:18px;padding:14px 16px;border-radius:var(--r-md);background:#FFF6D6;color:#5A4200;font-size:15px}
+.season b{display:block;font:700 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.dates{display:flex;gap:8px;overflow-x:auto;margin:0 calc(-1*var(--g));padding:2px var(--g) 4px;scrollbar-width:none}
+.dates::-webkit-scrollbar{display:none}
+.date{flex:0 0 auto;min-width:98px;padding:11px 13px;border-radius:13px;border:1.5px solid var(--line);background:var(--card);transition:border-color .15s,box-shadow .15s}
+.date b{display:block;font-size:15.5px;font-weight:600}
+.date span{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+.date .low{color:#B07800}
+.date[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.date:disabled{opacity:.45;cursor:default}
+.pax{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:12px 12px 12px 16px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+.pax b{display:block;font-weight:600}
+.pax small{display:block;font-size:12.5px;color:var(--muted)}
+.stepper{display:flex;align-items:center;gap:4px}
+.stepper button{width:42px;height:42px;border-radius:12px;background:var(--paper);font-size:22px;line-height:1;display:grid;place-items:center}
+.stepper button:disabled{opacity:.35}
+.stepper output{min-width:30px;text-align:center;font:700 18px/1 var(--f-display)}
+.cta-bar{display:flex;align-items:center;gap:12px;padding:12px var(--g) calc(12px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line)}
+.cta-bar .sum{flex:1;min-width:0}
+.cta-bar .sum small{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cta-bar .sum b{display:block;margin-top:3px;font:700 21px/1.05 var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cta-bar .btn{flex:0 0 auto}
+
+/* quiz */
+.qz-panel{background:var(--paper)}
+.qz-top{display:flex;align-items:center;gap:12px;padding:18px var(--g) 0}
+.qz-steps{flex:1;display:flex;gap:6px}
+.qz-steps i{flex:1;height:4px;border-radius:4px;background:var(--line);transition:background-color .3s}
+.qz-steps i.on{background:var(--sea)}
+.qz-top .x{position:static}
+.qz{padding:28px var(--g) 32px}
+.qz-anim{animation:slidein .35s cubic-bezier(.2,.9,.2,1)}
+@keyframes slidein{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+.qz-q{font-size:27px}
+.qz-opts{display:grid;gap:10px;margin-top:24px}
+.qz-opt{display:flex;flex-direction:column;justify-content:center;min-height:66px;padding:12px 18px;border-radius:16px;background:var(--card);border:1.5px solid var(--line);font-weight:600;font-size:17px;transition:border-color .15s,background-color .15s,transform .15s}
+.qz-opt:active{transform:scale(.98)}
+.qz-opt small{display:block;margin-top:3px;font-weight:400;font-size:13.5px;color:var(--muted)}
+.qz-opt.sel{border-color:var(--sea);background:var(--sea-tint)}
+.qz-back{margin-top:18px;min-height:44px;padding:0 4px;font-weight:600;color:var(--muted)}
+.thinking{display:grid;place-items:center;gap:18px;padding:90px 0 60px;text-align:center}
+.thinking p{margin:0;font:700 13px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--sea)}
+.radar{position:relative;width:86px;height:86px;border-radius:50%;border:2px solid var(--sea-tint)}
+.radar::before{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid transparent;border-top-color:var(--sea);animation:spin .8s linear infinite}
+.radar svg{position:absolute;inset:0;margin:auto;width:34px;height:34px;color:var(--sea)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.res-card{position:relative;margin-top:16px;border-radius:var(--r-lg);overflow:hidden;background:#C9D5D7;aspect-ratio:4/3}
+.res-card img{width:100%;height:100%;object-fit:cover}
+.match{position:absolute;right:12px;top:12px;padding:8px 12px;border-radius:999px;background:var(--signal);color:var(--signal-ink);font:700 12px/1 var(--f-mono);letter-spacing:.04em}
+.res-title{margin:16px 0 0;font:700 22px/1.2 var(--f-display);letter-spacing:-.02em}
+.res-sub{margin:6px 0 0;color:var(--muted)}
+.why{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:9px}
+.why li{position:relative;padding-left:28px;font-size:15px;line-height:1.4}
+.why li::before{content:"";position:absolute;left:0;top:1px;width:19px;height:19px;border-radius:50%;background:var(--sea) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/11px no-repeat}
+.res-actions{display:grid;gap:10px;margin-top:22px}
+.also{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.also p{margin:0 0 10px;font-size:13px;color:var(--muted)}
+.also-row{display:flex;gap:8px;flex-wrap:wrap}
+.also-row button{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 12px 0 5px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px;font-weight:500}
+.also-row img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.also-row em{font-style:normal;font:700 11px/1 var(--f-mono);color:var(--sea)}
+
+/* booking done */
+.ok{align-items:center;padding:var(--g)}
+.ok-card{position:relative;width:min(100%,400px);padding:28px 22px 20px;border-radius:24px;background:var(--card);text-align:center;transform:translateY(24px) scale(.96);opacity:0;transition:transform .35s cubic-bezier(.2,.9,.2,1),opacity .25s}
+.ok.show .ok-card{transform:none;opacity:1}
+.ok-badge{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:var(--ok);display:grid;place-items:center;color:#fff}
+.ok-badge svg{width:30px;height:30px}
+.ok-card h3{margin:0;font:700 21px/1.2 var(--f-display)}
+.ok-card p{margin:10px 0 0;color:var(--ink-2)}
+.ok-card .note{margin:14px 0 18px;padding:12px;border-radius:12px;background:var(--paper);font-size:13.5px;color:var(--muted)}
+.ok-card .btn{width:100%}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}
+.confetti i{position:absolute;left:50%;top:45%;width:8px;height:12px;margin:-6px 0 0 -4px;border-radius:2px}
+
+/* stories viewer */
+.st{position:fixed;inset:0;z-index:90;display:flex;justify-content:center;background:#000;opacity:0;transition:opacity .22s;touch-action:none}
+.st.show{opacity:1}
+.st-frame{position:relative;width:min(100%,480px);height:100%;overflow:hidden;background:#0B1318;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:transform .2s}
+.st-media{position:absolute;inset:0}
+.st-media img{width:100%;height:100%;object-fit:cover;animation:kb 7s ease-out forwards}
+@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+.st-txt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:40px 30px;color:#fff;background:linear-gradient(160deg,#0E8C99 0,#06545C 100%)}
+.st-txt.signal{background:linear-gradient(160deg,#FFD452 0,#F29A00 100%);color:var(--signal-ink)}
+.st-txt.ink{background:linear-gradient(160deg,#1D2C36 0,#0B1318 100%)}
+.st-txt span{font:700 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.st-txt p{margin:0;font:700 27px/1.25 var(--f-display);letter-spacing:-.02em;text-wrap:balance}
+.st-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.5) 0,rgba(0,0,0,0) 20%,rgba(0,0,0,0) 55%,rgba(0,0,0,.66) 100%)}
+.st-bars{position:absolute;top:calc(env(safe-area-inset-top) + 10px);left:10px;right:10px;z-index:3;display:flex;gap:4px}
+.st-bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}
+.st-bar i{display:block;height:100%;background:#fff;transform-origin:0 50%;transform:scaleX(0)}
+.st-bar.done i{transform:scaleX(1)}
+.st-bar.run i{animation:bar 5.2s linear forwards}
+.st.paused .st-bar.run i,.st.loading .st-bar.run i{animation-play-state:paused}
+@keyframes bar{to{transform:scaleX(1)}}
+.st-head{position:absolute;top:calc(env(safe-area-inset-top) + 22px);left:12px;right:6px;z-index:3;display:flex;align-items:center;gap:10px;color:#fff}
+.st-head img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85)}
+.st-head b{display:block;font-size:14px;line-height:1.2}
+.st-head span{display:block;font-size:12.5px;opacity:.8}
+.st-head .x{position:static;margin-left:auto;background:transparent}
+.st-cap{position:absolute;left:20px;right:20px;bottom:calc(env(safe-area-inset-bottom) + 96px);z-index:3;margin:0;color:#fff;font:600 21px/1.3 var(--f-body);text-shadow:0 1px 14px rgba(0,0,0,.45);text-wrap:balance}
+.st-cta{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom) + 26px);z-index:4;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 22px;border-radius:999px;background:#fff;color:var(--ink);font-weight:600;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.st-cta svg{width:18px;height:18px}
+.st-ai{position:absolute;right:14px;bottom:calc(env(safe-area-inset-bottom) + 84px);z-index:3;font:700 9px/1 var(--f-mono);letter-spacing:.1em;color:rgba(255,255,255,.55)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .st-bar.run i{animation-duration:5.2s!important}
+}
+</style>
+</head>
+<body>
+<div class="app" id="top">
+
+  <header class="bar" id="bar">
+    <a class="logo" href="#top" aria-label="keda, наверх">keda<sup>travel</sup></a>
+    <span class="bar-sub">туры от Кати</span>
+    <a class="icon-btn" href="https://www.instagram.com/keda_269/" target="_blank" rel="noopener" aria-label="Instagram Кати">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </header>
+
+  <nav class="stories-row" id="storiesRow" aria-label="Сторис о турах"></nav>
+
+  <section class="hero">
+    <figure class="hero-media">
+      <img src="img/ai-cappadocia.jpg" alt="Катя на крыше в Каппадокии на рассвете, над долиной воздушные шары" fetchpriority="high">
+      <figcaption class="hero-tag"><span class="pulse"></span>Каппадокия · 5:40 утра</figcaption>
+      <div class="hero-over">
+        <p class="eyebrow">Гедонистка в третьем поколении</p>
+        <h1>Отдых, который я проверила сама</h1>
+      </div>
+    </figure>
+    <p class="lead">Подбираю туры так, как выбирала бы для себя: лично смотрю отели, знаю, где лучший риф и какой номер просить на ресепшене.</p>
+    <div class="actions">
+      <button class="btn btn-signal" type="button" data-quiz>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></svg>
+        Подобрать тур за 30 секунд
+      </button>
+      <a class="btn btn-ghost" href="#board">Ближайшие вылеты</a>
+    </div>
+    <dl class="facts">
+      <div><dt>27</dt><dd>перелётов за прошлый год</dd></div>
+      <div><dt>40</dt><dd>отелей Шарма проверила лично</dd></div>
+      <div><dt>20</dt><dd>стран в копилке</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec" id="board" aria-labelledby="boardTitle">
+    <p class="eyebrow">Табло вылетов</p>
+    <h2 id="boardTitle">Ближайшие группы</h2>
+    <p class="sec-sub">Мини-группы до 12 человек, вылет из Москвы. Нажмите на рейс, чтобы открыть тур.</p>
+    <div class="chips" id="monthChips" aria-label="Месяц вылета"></div>
+    <div class="board">
+      <div class="board-top">
+        <span class="t"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 15.5v-1.8L13.6 9V3.8a1.6 1.6 0 10-3.2 0V9l-7.9 4.7v1.8l7.9-2.3v4.9l-2.1 1.6V21l3.7-1.1 3.7 1.1v-1.3l-2.1-1.6v-4.9z"/></svg>Вылеты · Departures</span>
+        <span class="board-clock" id="boardClock"></span>
+      </div>
+      <div class="board-head" aria-hidden="true"><span>Дата</span><span>Рейс</span><span>Куда</span><span>Места</span></div>
+      <div id="boardRows"></div>
+    </div>
+    <button class="board-more" id="boardMore" type="button">Показать все вылеты</button>
+  </section>
+
+  <section class="sec" id="tours" aria-labelledby="toursTitle">
+    <p class="eyebrow">Туры</p>
+    <h2 id="toursTitle">Куда полетим</h2>
+    <div class="passes" id="passes"></div>
+  </section>
+
+  <section class="sec">
+    <div class="teaser">
+      <p class="eyebrow">Не знаете, куда?</p>
+      <h2>Три вопроса, и я предложу тур</h2>
+      <p>Когда, с кем и какой бюджет. Остальное подберу сама.</p>
+      <button class="btn btn-signal" type="button" data-quiz>Подобрать тур</button>
+    </div>
+  </section>
+
+  <section class="sec" id="about" aria-labelledby="aboutTitle">
+    <p class="eyebrow">Кто я</p>
+    <h2 id="aboutTitle">Привет, я Катя</h2>
+    <figure class="about-photo">
+      <img src="img/katya.jpg" alt="Катя за завтраком в кафе" loading="lazy">
+      <figcaption>@keda_269</figcaption>
+    </figure>
+    <div class="about-text">
+      <p>Гедонистка в третьем поколении. Люблю отпуск, в котором всё продумано: хороший отель, красивое место и ни одной лишней очереди.</p>
+      <p>За прошлый год у меня было 27 перелётов. Езжу в рекламные туры для турагентов и лично проверяю отели: только в Шарме посмотрела 40 за одну поездку. Поэтому знаю, какой корпус тише, где пляж без камней и какой номер просить на ресепшене.</p>
+    </div>
+    <ol class="steps">
+      <li><div><b>Рассказываете, чего хочется</b><span>Даты, бюджет и с кем летите. Или пройдите подбор, это 30 секунд.</span></div></li>
+      <li><div><b>Присылаю 2–3 варианта</b><span>С живыми фото номеров и честными минусами каждого отеля.</span></div></li>
+      <li><div><b>Бронирую и остаюсь на связи</b><span>Отвечаю в Telegram даже в 5 утра, когда вы ждёте шар в Каппадокии.</span></div></li>
+    </ol>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-top">
+      <a class="logo" href="#top">keda<sup>travel</sup></a>
+      <a href="https://www.instagram.com/keda_269/" target="_blank" rel="noopener">Instagram @keda_269</a>
+    </div>
+    <p class="demo">Демо-версия сайта: туры, даты и цены придуманы для примера, заявки никуда не отправляются. Часть фотографий сгенерирована ИИ по снимкам из Instagram Кати. Сайт собран с помощью ИИ за один вечер.</p>
+  </footer>
+</div>
+
+<nav class="tabbar" aria-label="Разделы">
+  <a class="tab" href="#board" data-nav="board">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Вылеты</a>
+  <a class="tab" href="#tours" data-nav="tours">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v2.5a2.5 2.5 0 000 5V17a2 2 0 01-2 2H6a2 2 0 01-2-2v-2.5a2.5 2.5 0 000-5z"/><path d="M14 5v2M14 11v2M14 17v2"/></svg>Туры</a>
+  <button class="tab tab-quiz" type="button" data-quiz>
+    <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span>Подбор</button>
+  <a class="tab" href="#about" data-nav="about">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.3-3.6 4.1-5.3 7.5-5.3s6.2 1.7 7.5 5.3"/></svg>Катя</a>
+</nav>
+
+<!-- tour sheet -->
+<div class="ov" id="tourOv" hidden>
+  <div class="scrim" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="tsTitle">
+    <button class="x" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="panel-scroll" id="tsScroll"><div id="tsBody"></div></div>
+    <div class="cta-bar">
+      <div class="sum"><small id="tsSumLabel"></small><b id="tsSum"></b></div>
+      <button class="btn btn-signal" type="button" id="tsBook">Хочу в тур</button>
+    </div>
+  </div>
+</div>
+
+<!-- quiz -->
+<div class="ov" id="quizOv" hidden>
+  <div class="scrim" data-close></div>
+  <div class="panel qz-panel" role="dialog" aria-modal="true" aria-labelledby="qzTitle">
+    <div class="qz-top">
+      <div class="qz-steps" id="qzSteps"></div>
+      <button class="x light" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="panel-scroll"><div class="qz" id="qzBody"></div></div>
+  </div>
+</div>
+
+<!-- booking done -->
+<div class="ov ok" id="okOv" hidden>
+  <div class="scrim" data-close></div>
+  <div class="ok-card" role="dialog" aria-modal="true" aria-labelledby="okTitle">
+    <div class="ok-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h3 id="okTitle">Заявка собрана!</h3>
+    <p id="okText"></p>
+    <p class="note">Это демо-версия, поэтому заявка никуда не ушла. На рабочем сайте она сразу придёт Кате в Telegram.</p>
+    <button class="btn btn-ink" type="button" data-close>Отлично</button>
+  </div>
+</div>
+
+<!-- stories viewer -->
+<div class="st" id="st" hidden role="dialog" aria-modal="true" aria-label="Сторис">
+  <div class="st-frame" id="stFrame">
+    <div class="st-media" id="stMedia"></div>
+    <div class="st-shade"></div>
+    <div class="st-bars" id="stBars"></div>
+    <div class="st-head">
+      <img id="stAva" src="img/th-katya.jpg" alt="">
+      <div><b>keda_269</b><span id="stName"></span></div>
+      <button class="x" type="button" data-close aria-label="Закрыть сторис"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <p class="st-cap" id="stCap"></p>
+    <button class="st-cta" type="button" id="stCta">Смотреть тур<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+/* ---------- data ---------- */
+const TOURS = [
+{
+  id: 'sharm', country: 'Египет', place: 'Шарм-эль-Шейх', short: 'Шарм', board: 'ШАРМ',
+  title: 'Красное море, которое я проверила лично',
+  code: 'SSH', flight: '4 ч 50 мин', days: 8, nights: 7, group: 12,
+  price: 98000, hotel: 'Rixos Radamis 5★ ultra all inclusive',
+  cover: 'img/sharm-view.jpg', pos: '50% 45%',
+  gallery: ['img/sharm-view.jpg', 'img/red-sea.jpg', 'img/sharm-hammock.jpg', 'img/sharm-palms.jpg', 'img/sinai-canyon.jpg', 'img/ai-giza.jpg'],
+  who: ['two', 'kids', 'friends', 'solo'],
+  whoWhy: {two: 'Ужин на пирсе и хаммам на двоих', kids: 'Отель с аквапарком и детским клубом, лететь меньше пяти часов', friends: 'Ultra all inclusive и вечера на SOHO Square', solo: 'Мини-группа, и я всегда на связи'},
+  season: 'Сезон круглый год. В октябре и ноябре воздух +29°, море +26°, зимой +23°.',
+  weather: 'в октябре море +26°',
+  quote: 'В этом году я за неделю посмотрела 40 отелей Шарма. В тур беру только те, куда вернулась бы сама.',
+  program: [
+    {d: '1', t: 'Прилёт и первый закат', x: 'Трансфер 15 минут, номер с видом на море. Вечером ужин на террасе, откуда видно остров Тиран.'},
+    {d: '2', t: 'Свой риф у отеля', x: 'Маска, ласты и понтон прямо от пляжа. Через пять минут вы среди рыб-клоунов и кораллов.', img: 'img/red-sea.jpg'},
+    {d: '3', t: 'Рас-Мохаммед на яхте', x: 'Национальный парк, две остановки для снорклинга и обед на борту. Лучший риф Красного моря.'},
+    {d: '4', t: 'День гедониста', x: 'Хаммам, массаж и инфинити-бассейн. Ничего не делать тоже часть программы.', img: 'img/sharm-pool.jpg'},
+    {d: '5', t: 'Цветной каньон', x: 'Джипы через Синай, прогулка между розовыми и золотыми скалами, бедуинский чай у костра.', img: 'img/sinai-canyon.jpg'},
+    {d: '6', t: 'Каир и пирамиды', x: 'По желанию: утренний перелёт в Каир, пирамиды Гизы и Сфинкс. К ужину вы снова у моря.', img: 'img/ai-giza.jpg'},
+    {d: '7', t: 'Старый рынок и SOHO', x: 'Специи, лампы и кальян в Старом городе, вечером поющие фонтаны на SOHO Square.'},
+    {d: '8', t: 'Домой', x: 'Поздний выезд из номера и трансфер в аэропорт.'},
+  ],
+  inc: ['Перелёт из Москвы и обратно', 'Отель 5★, ultra all inclusive', 'Трансферы и страховка', 'Яхта в Рас-Мохаммед', 'Джип-сафари в Цветной каньон', 'Мой чат 24/7 во время поездки'],
+  exc: ['Виза: 25 $ на месте', 'Каир и пирамиды: от 120 $', 'Спа и массаж'],
+},
+{
+  id: 'turkey', country: 'Турция', place: 'Каппадокия и Алания', short: 'Каппадокия', board: 'КАППАДОКИЯ',
+  title: 'Шары на рассвете и море в одном отпуске',
+  code: 'NAV', flight: '≈ 6 ч с пересадкой', days: 9, nights: 8, group: 10,
+  price: 124000, hotel: 'Пещерный отель + Алания 5★',
+  cover: 'img/ai-cappadocia.jpg', pos: '50% 32%',
+  gallery: ['img/ai-cappadocia.jpg', 'img/alanya-river.jpg', 'img/alanya.jpg', 'img/hotel-garden.jpg'],
+  who: ['two', 'friends', 'solo'],
+  whoWhy: {two: 'Полёт на шаре на рассвете: самое романтичное утро в жизни', friends: 'Фото на крышах Гёреме, после которых вас засыплют лайками', solo: 'Маленькая группа, живём в одном пещерном отеле', kids: 'Детям понравится, но подъём в пять утра выдержит не каждый'},
+  season: 'В октябре в Каппадокии днём +18°, ночью свежо. В Алании воздух +27°, море +24°.',
+  weather: 'в Алании море +24°',
+  quote: 'Шары взлетают каждое утро, если нет ветра. Я закладываю в программу два рассвета, чтобы вы точно полетели.',
+  program: [
+    {d: '1', t: 'Прилёт в Каппадокию', x: 'Трансфер в пещерный отель в Гёреме, ужин на крыше с видом на долину.'},
+    {d: '2', t: 'Шары на рассвете', x: 'Подъём в 5:00, полёт на воздушном шаре и шампанское после приземления. Или фото с крыши, если лететь не хочется.', img: 'img/ai-cappadocia.jpg'},
+    {d: '3', t: 'Долины и подземный город', x: 'Розовая долина, подземный город Деринкую и гончарная мастерская в Аваносе.'},
+    {d: '4', t: 'Перелёт к морю', x: 'Кайсери → Анталья, трансфер в Аланию, отель 5★ на первой линии.'},
+    {d: '5', t: 'Пляж Клеопатры', x: 'Песок, крепость Алании и канатная дорога к закату.', img: 'img/alanya.jpg'},
+    {d: '6', t: 'Обед над рекой Дим', x: 'Деревянные помосты прямо над горной рекой: форель, айран и ледяная вода.', img: 'img/alanya-river.jpg'},
+    {d: '7', t: 'Яхта вдоль побережья', x: 'Пещеры, бухты и купание в открытом море.'},
+    {d: '8', t: 'День у моря', x: 'Хаммам, спа и all inclusive без будильника.'},
+    {d: '9', t: 'Домой', x: 'Трансфер в аэропорт Антальи.'},
+  ],
+  inc: ['Перелёты, включая Кайсери → Анталья', '3 ночи в пещерном отеле с завтраками', '5 ночей в Алании, all inclusive', 'Экскурсии по Каппадокии', 'Трансферы и страховка', 'Мой чат 24/7'],
+  exc: ['Полёт на шаре: от 230 €', 'Яхта: 35 €', 'Личные расходы'],
+},
+{
+  id: 'dubai', country: 'ОАЭ', place: 'Дубай и Абу-Даби', short: 'Дубай', board: 'ДУБАЙ',
+  title: 'Небоскрёбы, пустыня и Лувр за одну неделю',
+  code: 'DXB', flight: '5 ч 20 мин', days: 8, nights: 7, group: 12,
+  price: 139000, hotel: 'Дубай Марина 5★, завтраки',
+  cover: 'img/ai-dubai-desert.jpg', pos: '50% 40%',
+  gallery: ['img/ai-dubai-desert.jpg', 'img/dubai-burj.jpg', 'img/abu-dhabi-louvre.jpg'],
+  who: ['two', 'friends', 'kids', 'solo'],
+  whoWhy: {two: 'Ужин в пустыне под звёздами и вечер на крыше Марины', friends: 'Шопинг, пляжные клубы и лучшие фото года', kids: 'Аквапарки, пляж и прямой перелёт', solo: 'Безопасно, удобно и есть компания в группе'},
+  season: 'Сезон с октября по апрель. В ноябре +30°, море +27°, зимой +25°.',
+  weather: 'в ноябре море +27°',
+  quote: 'В Дубае легко потратить всё за три дня. Я знаю, где это делать с удовольствием, а где переплачивать не стоит.',
+  program: [
+    {d: '1', t: 'Прилёт в Дубай', x: 'Заселение на Дубай Марине и вечерняя прогулка по набережной.'},
+    {d: '2', t: 'Даунтаун', x: 'Бурдж-Халифа на закате, шоу фонтанов и Dubai Mall.'},
+    {d: '3', t: 'Пустыня', x: 'Джип-сафари по дюнам, закат на гребне бархана и ужин в лагере под звёздами.', img: 'img/ai-dubai-desert.jpg'},
+    {d: '4', t: 'Абу-Даби', x: 'Мечеть шейха Зайда и Лувр Абу-Даби под «световым дождём» купола.', img: 'img/abu-dhabi-louvre.jpg'},
+    {d: '5', t: 'Пляж у паруса', x: 'Джумейра-бич с видом на Бурдж-эль-Араб, ужин в Мадинат Джумейре.', img: 'img/dubai-burj.jpg'},
+    {d: '6', t: 'Старый Дубай', x: 'Лодки-абры через залив, рынки золота и специй, кофе в квартале Аль-Фахиди.'},
+    {d: '7', t: 'Шопинг и крыши', x: 'Днём аутлеты, вечером бар на крыше с видом на Марину.'},
+    {d: '8', t: 'Домой', x: 'Трансфер в аэропорт.'},
+  ],
+  inc: ['Перелёт из Москвы', 'Отель 5★ с завтраками', 'Сафари с ужином в пустыне', 'Экскурсия в Абу-Даби', 'Трансферы и страховка', 'Мой чат 24/7'],
+  exc: ['Бурдж-Халифа, 124 этаж: от 45 $', 'Обеды и ужины', 'Туристический сбор отеля'],
+},
+{
+  id: 'vietnam', country: 'Вьетнам', place: 'Дананг и Хойан', short: 'Дананг', board: 'ДАНАНГ',
+  title: 'Фонари Хойана и Золотой мост в облаках',
+  code: 'DAD', flight: '≈ 10 ч', days: 11, nights: 10, group: 10,
+  price: 142000, hotel: 'Отель 5★ на пляже Ми Кхе',
+  cover: 'img/ai-hoi-an.jpg', pos: '50% 35%',
+  gallery: ['img/ai-hoi-an.jpg'],
+  who: ['two', 'friends', 'solo'],
+  whoWhy: {two: 'Вечер с фонарями на реке: такие фото потом не стыдно показать', friends: 'Кулинарный мастер-класс, массажи и ночные рынки', solo: 'Азия без стресса: всё организовано, но есть свобода', kids: 'С маленькими детьми десять часов перелёта будет тяжело'},
+  season: 'Лучшее время с февраля по август. В феврале и марте +27°, море +25°.',
+  weather: 'в феврале +27°, море +25°',
+  quote: 'Хойан вечером, когда весь город светится шёлковыми фонарями, надо увидеть хотя бы раз в жизни.',
+  program: [
+    {d: '1', t: 'Прилёт в Дананг', x: 'Отель на пляже Ми Кхе и ужин из морепродуктов на берегу.'},
+    {d: '2', t: 'Пляж Ми Кхе', x: 'Один из лучших городских пляжей Азии, массаж прямо на песке.'},
+    {d: '3', t: 'Бана Хиллс', x: 'Канатная дорога над джунглями и Золотой мост на руках каменных великанов.'},
+    {d: '4', t: 'Хойан вечером', x: 'Старый город, тысячи шёлковых фонарей и свечи на реке Тхубон.', img: 'img/ai-hoi-an.jpg'},
+    {d: '5', t: 'Вьетнамская кухня', x: 'Рынок и мастер-класс: фо, баньми и кофе с кокосом.'},
+    {d: '6', t: 'Мраморные горы', x: 'Пещеры-храмы и вид на всё побережье.'},
+    {d: '7–10', t: 'Море и спа', x: 'Свободные дни: пляж, массажи и кафе. Дам свой список мест.'},
+    {d: '11', t: 'Домой', x: 'Трансфер в аэропорт.'},
+  ],
+  inc: ['Перелёт из Москвы', 'Отель 5★ с завтраками', 'Бана Хиллс и вечерний Хойан', 'Кулинарный мастер-класс', 'Трансферы и страховка', 'Мой чат 24/7'],
+  exc: ['Электронная виза: 25 $', 'Обеды и ужины', 'Массажи и спа'],
+},
+{
+  id: 'lanka', country: 'Шри-Ланка', place: 'Элла, Сигирия и океан', short: 'Шри-Ланка', board: 'КОЛОМБО',
+  title: 'Голубой поезд, чай и океан',
+  code: 'CMB', flight: '9 ч 20 мин', days: 12, nights: 11, group: 10,
+  price: 156000, hotel: 'Бутик-отели + Бентота 5★',
+  cover: 'img/ai-sri-lanka.jpg', pos: '50% 35%',
+  gallery: ['img/ai-sri-lanka.jpg'],
+  who: ['two', 'solo', 'friends'],
+  whoWhy: {two: 'Поезд через чайные холмы и аюрведа на двоих', solo: 'Самая насыщенная поездка: каждый день новое место', friends: 'Сафари, киты и серфинг: будет что вспомнить', kids: 'Переезды долгие, лучше ехать с детьми постарше'},
+  season: 'Сезон на юге с декабря по апрель: +30°, океан +28°, в Мириссе приплывают киты.',
+  weather: 'зимой +30°, океан +28°',
+  quote: 'За один отпуск успеваешь джунгли, горы, сафари и океан. И везде пьёшь лучший чай в жизни.',
+  program: [
+    {d: '1', t: 'Прилёт в Коломбо', x: 'Трансфер на побережье в Бентоту, первый закат над океаном.'},
+    {d: '2', t: 'Сигирия', x: 'Подъём на Львиную скалу на рассвете и пещерный храм Дамбулла.'},
+    {d: '3', t: 'Канди', x: 'Храм Зуба Будды и королевский ботанический сад.'},
+    {d: '4', t: 'Чайные холмы', x: 'Нувара-Элия, чайная фабрика и дегустация цейлонского чая.'},
+    {d: '5', t: 'Поезд в Эллу', x: 'Самая красивая железная дорога мира и Мост девяти арок.', img: 'img/ai-sri-lanka.jpg'},
+    {d: '6', t: 'Сафари в Яле', x: 'Леопарды, слоны и крокодилы, едем на джипах.'},
+    {d: '7', t: 'Киты в Мириссе', x: 'Выходим в океан в шесть утра, днём кокосовый холм.'},
+    {d: '8–11', t: 'Океан и аюрведа', x: 'Отель 5★ на пляже, аюрведические массажи и серф для желающих.'},
+    {d: '12', t: 'Домой', x: 'Трансфер в аэропорт Коломбо.'},
+  ],
+  inc: ['Перелёт Москва — Коломбо', 'Отели по маршруту с завтраками', 'Машина с русскоговорящим гидом', 'Поезд в Эллу, сафари и киты', 'Страховка', 'Мой чат 24/7'],
+  exc: ['Виза: 50 $ онлайн', 'Билет на Сигирию: 30 $', 'Обеды и ужины'],
+},
+{
+  id: 'malaysia', country: 'Малайзия', place: 'Куала-Лумпур и Лангкави', short: 'Куала-Лумпур', board: 'КУАЛА-ЛУМПУР',
+  title: 'Огни мегаполиса и остров в джунглях',
+  code: 'KUL', flight: '≈ 10 ч 30 мин', days: 10, nights: 9, group: 10,
+  price: 149000, hotel: 'KLCC 5★ + вилла на Лангкави',
+  cover: 'img/ai-kuala-lumpur.jpg', pos: '50% 35%',
+  gallery: ['img/ai-kuala-lumpur.jpg'],
+  who: ['two', 'friends', 'solo', 'kids'],
+  whoWhy: {two: 'Бары на крышах и острова без толп', friends: 'Уличная еда, скайбары и пляжи', solo: 'Спокойная и безопасная Азия', kids: 'Океанариум, пещеры с обезьянками и мелкий пляж'},
+  season: 'На Лангкави сезон с декабря по апрель: +32°, море +29°.',
+  weather: 'на Лангкави море +29°',
+  quote: 'В Куала-Лумпуре я знаю крышу, откуда башни Петронас видно лучше всего. Туда и поведу.',
+  program: [
+    {d: '1', t: 'Прилёт в Куала-Лумпур', x: 'Вечер у башен Петронас и шоу фонтанов в парке KLCC.', img: 'img/ai-kuala-lumpur.jpg'},
+    {d: '2', t: 'Пещеры Бату', x: '272 радужные ступени, храм в пещере и Чайна-таун.'},
+    {d: '3', t: 'Город с крыши', x: 'Скайбар с видом на башни и уличная еда на Джалан Алор.'},
+    {d: '4', t: 'Перелёт на Лангкави', x: 'Вилла у пляжа Ченанг и закат с коктейлем.'},
+    {d: '5', t: 'Небесный мост', x: 'Канатная дорога и мост над джунглями на высоте 700 метров.'},
+    {d: '6', t: 'Мангровые острова', x: 'Лодка по мангровым лесам, морские орлы и пещера летучих мышей.'},
+    {d: '7–9', t: 'Острова и пляж', x: 'Прогулки по островам, снорклинг и спа.'},
+    {d: '10', t: 'Домой', x: 'Перелёт через Куала-Лумпур.'},
+  ],
+  inc: ['Перелёты, включая Лангкави', 'Отели 5★ с завтраками', 'Экскурсии по Куала-Лумпуру', 'Небесный мост и мангры', 'Трансферы и страховка', 'Мой чат 24/7'],
+  exc: ['Обеды и ужины', 'Снорклинг: от 40 $', 'Личные расходы'],
+},
+];
+
+const DEPS = [
+  ['2026-10-10', 'turkey', 3, '07:15', 'SVO'],
+  ['2026-10-11', 'sharm', 4, '09:40', 'VKO'],
+  ['2026-10-17', 'dubai', 6, '11:05', 'DME'],
+  ['2026-10-24', 'turkey', 0, '07:15', 'SVO'],
+  ['2026-11-01', 'sharm', 9, '09:40', 'VKO'],
+  ['2026-11-07', 'turkey', 7, '07:15', 'SVO'],
+  ['2026-11-21', 'dubai', 2, '11:05', 'DME'],
+  ['2026-11-22', 'sharm', 5, '09:40', 'VKO'],
+  ['2026-12-05', 'lanka', 6, '22:30', 'SVO'],
+  ['2026-12-06', 'sharm', 8, '09:40', 'VKO'],
+  ['2026-12-12', 'dubai', 4, '11:05', 'DME'],
+  ['2026-12-28', 'lanka', 2, '22:30', 'SVO'],
+  ['2026-12-30', 'dubai', 0, '11:05', 'DME'],
+  ['2026-12-31', 'sharm', 3, '09:40', 'VKO'],
+  ['2027-01-09', 'malaysia', 7, '20:50', 'SVO'],
+  ['2027-01-24', 'lanka', 5, '22:30', 'SVO'],
+  ['2027-01-31', 'sharm', 10, '09:40', 'VKO'],
+  ['2027-02-13', 'malaysia', 6, '20:50', 'SVO'],
+  ['2027-02-14', 'vietnam', 8, '19:45', 'SVO'],
+  ['2027-02-20', 'dubai', 5, '11:05', 'DME'],
+  ['2027-02-21', 'lanka', 7, '22:30', 'SVO'],
+  ['2027-03-07', 'sharm', 4, '09:40', 'VKO'],
+  ['2027-03-07', 'vietnam', 6, '19:45', 'SVO'],
+  ['2027-03-13', 'malaysia', 9, '20:50', 'SVO'],
+  ['2027-03-28', 'vietnam', 10, '19:45', 'SVO'],
+].map(([date, tour, seats, time, apt]) => ({date, tour, seats, time, apt}));
+
+const STORIES = [
+  {id: 'katya', label: 'Катя', thumb: 'img/th-katya.jpg', frames: [
+    {img: 'img/katya.jpg', cap: 'Привет! Я Катя. Вожу мини-группы туда, где была сама'},
+    {text: '27 перелётов за прошлый год. Загадывала минимум три путешествия, немного перестаралась', tag: 'Факт', bg: ''},
+    {text: 'Лично посмотрела 40 отелей Шарма, чтобы вы не выбирали по картинкам', tag: 'Факт', bg: 'signal'},
+  ]},
+  {id: 'sharm', label: 'Шарм', tour: 'sharm', thumb: 'img/th-sharm.jpg', frames: [
+    {img: 'img/sharm-view.jpg', cap: 'Вид с террасы на Тиран. В жизни ещё бирюзовее'},
+    {img: 'img/red-sea.jpg', cap: 'Вода такая прозрачная, что риф видно с высоты'},
+    {img: 'img/sharm-hammock.jpg', cap: 'Гамаки у самой воды. Этот отель я проверила'},
+    {img: 'img/sinai-canyon.jpg', cap: 'Цветной каньон: два часа на джипах, и вы на Марсе'},
+    {img: 'img/ai-giza.jpg', cap: 'По желанию — день в Каире. Пирамиды на рассвете', ai: true},
+  ]},
+  {id: 'turkey', label: 'Каппадокия', tour: 'turkey', thumb: 'img/th-cappadocia.jpg', frames: [
+    {img: 'img/ai-cappadocia.jpg', cap: '5:40 утра. Шары поднимаются каждый день, если нет ветра', ai: true},
+    {img: 'img/alanya-river.jpg', cap: 'Обед над горной рекой Дим, 20 минут от Алании'},
+    {img: 'img/alanya.jpg', cap: 'Алания на закате с холма у крепости'},
+  ]},
+  {id: 'dubai', label: 'Дубай', tour: 'dubai', thumb: 'img/th-dubai.jpg', frames: [
+    {img: 'img/ai-dubai-desert.jpg', cap: 'Закат в дюнах, сорок минут от Марины', ai: true},
+    {img: 'img/dubai-burj.jpg', cap: 'Бурдж-эль-Араб. Лучший вид — из Мадинат Джумейры'},
+    {img: 'img/abu-dhabi-louvre.jpg', cap: 'Лувр Абу-Даби: купол, под которым идёт «световой дождь»'},
+  ]},
+  {id: 'vietnam', label: 'Вьетнам', tour: 'vietnam', thumb: 'img/th-hoi-an.jpg', frames: [
+    {img: 'img/ai-hoi-an.jpg', cap: 'Хойан вечером: тысячи шёлковых фонарей', ai: true},
+    {text: 'Лучшее время для Дананга — с февраля по август. Море +25°, а дома ещё снег', tag: 'Когда ехать', bg: 'ink'},
+  ]},
+  {id: 'lanka', label: 'Шри-Ланка', tour: 'lanka', thumb: 'img/th-sri-lanka.jpg', frames: [
+    {img: 'img/ai-sri-lanka.jpg', cap: 'Поезд в Эллу и Мост девяти арок', ai: true},
+    {text: 'Киты в Мириссе приплывают с декабря по апрель. Выходим в океан в шесть утра', tag: 'Лайфхак', bg: ''},
+  ]},
+  {id: 'malaysia', label: 'Малайзия', tour: 'malaysia', thumb: 'img/th-kuala-lumpur.jpg', frames: [
+    {img: 'img/ai-kuala-lumpur.jpg', cap: 'Петронас вечером. Знаю крышу с лучшим видом', ai: true},
+    {text: 'Из мегаполиса на остров: Лангкави — это пляжи, джунгли и мост в облаках', tag: 'Маршрут', bg: 'signal'},
+  ]},
+];
+
+const QUIZ = [
+  {key: 'when', q: 'Когда хотите поехать?', opts: [['oct', 'Октябрь — ноябрь', 'Бархатный сезон'], ['ny', 'На новогодние', 'С 20 декабря по 10 января'], ['win', 'Январь — март', 'Сбежать от зимы'], ['any', 'Пока не знаю', 'Покажу лучшее из ближайшего']]},
+  {key: 'who', q: 'С кем едете?', opts: [['two', 'Вдвоём'], ['kids', 'С детьми'], ['friends', 'С подругами'], ['solo', 'Один или одна']]},
+  {key: 'budget', q: 'Бюджет на человека?', opts: [['low', 'До 110 000 ₽', 'Хорошо и без лишнего'], ['mid', '110–150 000 ₽', 'Оптимально'], ['high', 'Бюджет не главное', 'Хочу лучшее']]},
+];
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MON = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+const MON_FULL = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const d8 = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const fmtShort = s => { const d = d8(s); return d.getDate() + ' ' + MON[d.getMonth()]; };
+const fmtLong = s => { const d = d8(s); return d.getDate() + ' ' + MON_FULL[d.getMonth()]; };
+const plural = (n, f) => { const a = n % 10, b = n % 100; return f[a === 1 && b !== 11 ? 0 : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 1 : 2]; };
+const seats = n => n === 0 ? 'мест нет' : n + ' ' + plural(n, ['место', 'места', 'мест']);
+const people = n => n + ' ' + plural(n, ['человек', 'человека', 'человек']);
+const rub = n => n.toLocaleString('ru-RU') + ' ₽';
+const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const PLANE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 15.5v-1.8L13.6 9V3.8a1.6 1.6 0 10-3.2 0V9l-7.9 4.7v1.8l7.9-2.3v4.9l-2.1 1.6V21l3.7-1.1 3.7 1.1v-1.3l-2.1-1.6v-4.9z" transform="rotate(90 12 12)"/></svg>';
+
+const byId = Object.fromEntries(TOURS.map(t => [t.id, t]));
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const upcoming = DEPS.filter(d => d8(d.date) >= today).sort((a, b) => a.date.localeCompare(b.date));
+const nextDep = id => upcoming.find(d => d.tour === id && d.seats > 0);
+
+/* ---------- overlays + back button ---------- */
+const stack = [];
+let skipPop = 0, lockY = 0, locked = false;
+function lock() {
+  if (locked) return;
+  locked = true; lockY = window.scrollY;
+  document.body.style.top = -lockY + 'px';
+  document.body.classList.add('locked');
+}
+function unlock() {
+  if (!locked) return;
+  locked = false;
+  document.body.classList.remove('locked');
+  document.body.style.top = '';
+  window.scrollTo({top: lockY, behavior: 'instant'});
+}
+function openLayer(name, show, hide) {
+  show(); stack.push({name, hide});
+  history.pushState({kd: stack.length}, '');
+  lock();
+}
+function swapLayer(name, show, hide) {
+  const top = stack.pop();
+  if (top) top.hide();
+  show(); stack.push({name, hide});
+  lock();
+}
+function closeLayer(name) {
+  const top = stack[stack.length - 1];
+  if (!top || (name && top.name !== name)) return;
+  stack.pop(); top.hide();
+  if (!stack.length) unlock();
+  skipPop++; history.back();
+}
+window.addEventListener('popstate', () => {
+  if (skipPop) { skipPop--; return; }
+  const top = stack.pop();
+  if (top) { top.hide(); if (!stack.length) unlock(); }
+});
+function showOv(el) { el.hidden = false; void el.offsetHeight; el.classList.add('show'); }
+function hideOv(el) { el.classList.remove('show'); setTimeout(() => { if (!el.classList.contains('show')) el.hidden = true; }, 460); }
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-close]')) { const top = stack[stack.length - 1]; if (top) closeLayer(top.name); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && stack.length) closeLayer(stack[stack.length - 1].name);
+});
+
+/* ---------- stories row ---------- */
+const getSeen = () => { try { return JSON.parse(localStorage.getItem('kd-seen') || '[]'); } catch (_) { return []; } };
+function markSeen(id) {
+  try { const s = new Set(getSeen()); s.add(id); localStorage.setItem('kd-seen', JSON.stringify([...s])); } catch (_) {}
+  const b = $(`.story[data-id="${id}"]`); if (b) b.classList.add('seen');
+}
+function renderStoriesRow() {
+  const seen = getSeen();
+  $('#storiesRow').innerHTML = STORIES.map((s, i) => `
+    <button class="story${seen.includes(s.id) ? ' seen' : ''}" type="button" data-story="${i}" data-id="${s.id}" aria-label="Сторис: ${esc(s.label)}">
+      <span class="story-ring"><img src="${s.thumb}" alt="" width="64" height="64"></span>
+      <span class="story-label">${esc(s.label)}</span>
+    </button>`).join('');
+}
+
+/* ---------- departure board ---------- */
+const MONTHS = [['all', 'Все'], ['2026-10', 'Октябрь'], ['2026-11', 'Ноябрь'], ['2026-12', 'Декабрь'], ['2027-01', 'Январь'], ['2027-02', 'Февраль'], ['2027-03', 'Март']];
+let boardMonth = 'all', boardAll = false;
+const GLYPHS = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ0123456789';
+const flapCells = [];
+let flapTimer = 0;
+const glyph = () => GLYPHS[Math.random() * GLYPHS.length | 0];
+function flapLoop() {
+  const now = performance.now();
+  for (let i = flapCells.length - 1; i >= 0; i--) {
+    const c = flapCells[i];
+    if (now < c.start) continue;
+    if (now >= c.end) { c.s.textContent = c.ch; c.s.classList.add('set'); flapCells.splice(i, 1); }
+    else c.s.textContent = glyph();
+  }
+  if (!flapCells.length) { clearInterval(flapTimer); flapTimer = 0; }
+}
+function flap(el, text, delay) {
+  el.textContent = '';
+  const now = performance.now();
+  [...text].forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.className = 'fl';
+    s.textContent = ch === ' ' ? ' ' : ch;
+    el.appendChild(s);
+    if (delay < 0 || reduce || ch === ' ') return;
+    const start = now + delay + i * 24;
+    s.textContent = glyph();
+    flapCells.push({s, ch, start, end: start + 220 + Math.random() * 380});
+  });
+  if (flapCells.length && !flapTimer) flapTimer = setInterval(flapLoop, 50);
+}
+function renderChips() {
+  const have = new Set(upcoming.map(d => d.date.slice(0, 7)));
+  $('#monthChips').innerHTML = MONTHS.filter(([k]) => k === 'all' || have.has(k))
+    .map(([k, l]) => `<button class="chip" type="button" data-month="${k}" aria-pressed="${k === boardMonth}">${l}</button>`).join('');
+}
+function renderBoard(animate) {
+  flapCells.length = 0;
+  let list = boardMonth === 'all' ? upcoming : upcoming.filter(d => d.date.startsWith(boardMonth));
+  const more = boardMonth === 'all' && !boardAll && list.length > 8;
+  if (more) list = list.slice(0, 8);
+  $('#boardRows').innerHTML = list.length ? list.map(d => {
+    const t = byId[d.tour];
+    const cls = d.seats === 0 ? 'out' : d.seats <= 4 ? 'low' : '';
+    return `<button class="brow" type="button" data-dep="${upcoming.indexOf(d)}" aria-label="${esc(`${fmtLong(d.date)}, ${t.place}, ${seats(d.seats)}`)}">
+      <span class="c-date"><span class="flap" data-t="${fmtShort(d.date).toUpperCase()}"></span><small>${d.time} ${d.apt}</small></span>
+      <span class="c-code flap" data-t="${t.code}"></span>
+      <span class="c-city flap" data-t="${t.board}"></span>
+      <span class="c-st ${cls} flap" data-t="${seats(d.seats).toUpperCase()}"></span>
+    </button>`;
+  }).join('') : '<p class="board-empty">В этом месяце вылетов нет</p>';
+  $('#boardMore').hidden = !more;
+  $$('#boardRows .flap').forEach((el, i) => flap(el, el.dataset.t, animate ? i * 16 : -1));
+}
+function tickClock() {
+  try {
+    $('#boardClock').textContent = 'Москва ' + new Intl.DateTimeFormat('ru-RU', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow'}).format(new Date());
+  } catch (_) {}
+}
+
+/* ---------- tour cards ---------- */
+function renderPasses() {
+  $('#passes').innerHTML = TOURS.map(t => {
+    const nd = nextDep(t.id);
+    const low = nd && nd.seats <= 4;
+    return `<article class="pass" data-tour="${t.id}">
+      <div class="pass-media"><img src="${t.cover}" alt="${esc(t.country + ', ' + t.place)}" loading="lazy" style="object-position:${t.pos}"><span class="pill">${esc(t.country)}</span></div>
+      <div class="pass-body">
+        <div class="route">
+          <div><span class="iata">MOW</span><span class="city">Москва</span></div>
+          <div class="flight"><span>${PLANE}${esc(t.flight)}</span></div>
+          <div class="to"><span class="iata">${t.code}</span><span class="city">${esc(t.short)}</span></div>
+        </div>
+        <h3 class="pass-title">${esc(t.title)}</h3>
+        <div class="meta"><span>${t.days} ${plural(t.days, ['день', 'дня', 'дней'])}</span><span>${esc(t.hotel)}</span>${nd ? `<span class="${low ? 'hot' : ''}">${low ? 'осталось ' + seats(nd.seats) + ' на ' + fmtShort(nd.date) : 'ближайший вылет ' + fmtShort(nd.date)}</span>` : ''}</div>
+      </div>
+      <div class="stub"><div class="price"><small>от, за человека</small>${rub(t.price)}</div><button class="btn btn-ink btn-sm" type="button" data-tour-open="${t.id}">Смотреть тур</button></div>
+    </article>`;
+  }).join('');
+}
+
+/* ---------- tour sheet ---------- */
+let cur = null, shownSum = 0, sumRaf = 0;
+function tourHTML(t, deps) {
+  return `
+  <div class="gal-wrap">
+    <div class="gal" id="tsGal">${t.gallery.map((src, i) => `<img src="${src}" alt="${esc(t.place)}, фото ${i + 1}"${i ? ' loading="lazy"' : ''}>`).join('')}</div>
+    ${t.gallery.length > 1 ? `<div class="dots" id="tsDots">${t.gallery.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div>` : ''}
+    <span class="gal-code">MOW → ${t.code}</span>
+  </div>
+  <div class="ts">
+    <p class="eyebrow">${esc(t.country)} · ${esc(t.place)}</p>
+    <h2 id="tsTitle">${esc(t.title)}</h2>
+    <div class="ts-chips"><span>${t.days} ${plural(t.days, ['день', 'дня', 'дней'])}, ${t.nights} ${plural(t.nights, ['ночь', 'ночи', 'ночей'])}</span><span>Перелёт ${esc(t.flight)}</span><span>${esc(t.hotel)}</span><span>Группа до ${t.group}</span></div>
+    <figure class="quote"><img src="img/th-katya.jpg" alt=""><blockquote>${esc(t.quote)}<figcaption>Катя</figcaption></blockquote></figure>
+    <h3 class="h3">Программа по дням</h3>
+    <ol class="days">${t.program.map((p, i) => `
+      <li class="day"><details${i === 0 ? ' open' : ''}><summary><span><small>День ${p.d}</small><b>${esc(p.t)}</b></span></summary>
+        <div class="dd"><p>${esc(p.x)}</p>${p.img ? `<img src="${p.img}" alt="" loading="lazy">` : ''}</div></details></li>`).join('')}
+    </ol>
+    <h3 class="h3">Включено</h3>
+    <ul class="inc">${t.inc.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    <h3 class="h3">Оплачивается отдельно</h3>
+    <ul class="exc">${t.exc.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    <div class="season"><b>Погода</b>${esc(t.season)}</div>
+    <h3 class="h3" id="tsDatesH">Даты и места</h3>
+    <div class="dates" role="radiogroup" aria-labelledby="tsDatesH">${deps.map(d => `
+      <button class="date" type="button" role="radio" aria-checked="${d === cur.sel}" data-dep="${upcoming.indexOf(d)}"${d.seats ? '' : ' disabled'}>
+        <b>${fmtShort(d.date)}</b><span class="${d.seats && d.seats <= 4 ? 'low' : ''}">${seats(d.seats)}</span></button>`).join('') || '<p class="sec-sub">Новые даты скоро появятся</p>'}
+    </div>
+    <div class="pax"><span><b>Путешественники</b><small>${rub(t.price)} за человека</small></span>
+      <div class="stepper"><button type="button" data-pax="-1" aria-label="Меньше путешественников">−</button><output id="paxOut">${cur.pax}</output><button type="button" data-pax="1" aria-label="Больше путешественников">+</button></div>
+    </div>
+  </div>`;
+}
+function updateSum() {
+  const {t, sel, pax} = cur;
+  const total = t.price * pax;
+  $('#tsSumLabel').textContent = people(pax) + (sel ? ' · вылет ' + fmtShort(sel.date) : '');
+  $('#tsBook').textContent = sel ? 'Хочу в тур' : 'В лист ожидания';
+  $$('#tsBody [data-pax]').forEach(b => { b.disabled = (+b.dataset.pax < 0 && pax <= 1) || (+b.dataset.pax > 0 && pax >= 6); });
+  cancelAnimationFrame(sumRaf);
+  const out = $('#tsSum');
+  if (reduce || !shownSum) { shownSum = total; out.textContent = rub(total); return; }
+  const from = shownSum, t0 = performance.now();
+  const step = now => {
+    const k = Math.min(1, (now - t0) / 380), e = 1 - Math.pow(1 - k, 3);
+    shownSum = Math.round(from + (total - from) * e);
+    out.textContent = rub(k < 1 ? Math.round(shownSum / 100) * 100 : total);
+    if (k < 1) sumRaf = requestAnimationFrame(step); else shownSum = total;
+  };
+  sumRaf = requestAnimationFrame(step);
+}
+function openTour(id, depIndex, swap) {
+  const t = byId[id];
+  const deps = upcoming.filter(d => d.tour === id);
+  const pre = depIndex != null ? upcoming[depIndex] : null;
+  cur = {t, sel: pre && pre.seats ? pre : deps.find(d => d.seats > 0) || null, pax: 2};
+  shownSum = 0;
+  $('#tsBody').innerHTML = tourHTML(t, deps);
+  updateSum();
+  const ov = $('#tourOv');
+  const show = () => {
+    showOv(ov);
+    $('#tsScroll').scrollTop = 0;
+    const s = $('.date[aria-checked="true"]', ov), row = $('.dates', ov);
+    if (s && row) row.scrollLeft = Math.max(0, s.offsetLeft - row.offsetLeft - (row.clientWidth - s.offsetWidth) / 2);
+  };
+  (swap ? swapLayer : openLayer)('tour', show, () => hideOv(ov));
+}
+$('#tsBody').addEventListener('click', e => {
+  const db = e.target.closest('.date');
+  if (db && !db.disabled) {
+    cur.sel = upcoming[+db.dataset.dep];
+    $$('#tsBody .date').forEach(b => b.setAttribute('aria-checked', String(b === db)));
+    updateSum();
+  }
+  const pb = e.target.closest('[data-pax]');
+  if (pb && !pb.disabled) {
+    cur.pax = Math.min(6, Math.max(1, cur.pax + Number(pb.dataset.pax)));
+    $('#paxOut').textContent = cur.pax;
+    updateSum();
+  }
+});
+$('#tsBody').addEventListener('scroll', e => {
+  if (e.target.id !== 'tsGal') return;
+  const g = e.target, i = Math.round(g.scrollLeft / g.clientWidth);
+  $$('#tsDots i').forEach((d, k) => d.classList.toggle('on', k === i));
+}, true);
+$('#tsBook').addEventListener('click', () => {
+  const {t, sel, pax} = cur;
+  $('#okTitle').textContent = sel ? 'Заявка собрана!' : 'Вы в листе ожидания!';
+  $('#okText').textContent = sel
+    ? `${t.place}, вылет ${fmtLong(sel.date)}, ${people(pax)}. Итого ${rub(t.price * pax)}.`
+    : `${t.place}: как только освободится место, Катя напишет.`;
+  const ov = $('#okOv');
+  openLayer('ok', () => { showOv(ov); confetti(); }, () => hideOv(ov));
+});
+function confetti() {
+  if (reduce) return;
+  const box = document.createElement('div');
+  box.className = 'confetti';
+  document.body.appendChild(box);
+  const colors = ['#FFC21A', '#0B7A86', '#FF7A45', '#4BD394', '#E0457B', '#FFFFFF'];
+  for (let i = 0; i < 46; i++) {
+    const p = document.createElement('i');
+    p.style.background = colors[i % colors.length];
+    box.appendChild(p);
+    const a = Math.random() * Math.PI * 2, v = 90 + Math.random() * 200;
+    const dx = Math.cos(a) * v, dy = Math.sin(a) * v - 170;
+    p.animate([
+      {transform: 'translate(0,0) rotate(0deg)', opacity: 1},
+      {transform: `translate(${dx}px, ${dy}px) rotate(${Math.random() * 360}deg)`, opacity: 1, offset: .45},
+      {transform: `translate(${dx * 1.3}px, ${dy + 520}px) rotate(${Math.random() * 900}deg)`, opacity: 0},
+    ], {duration: 1500 + Math.random() * 700, easing: 'cubic-bezier(.15,.7,.35,1)', fill: 'forwards'});
+  }
+  setTimeout(() => box.remove(), 2400);
+}
+
+/* ---------- quiz ---------- */
+const QZ = {step: 0, ans: {}};
+const WHEN = {
+  oct: d => d < d8('2026-12-01'),
+  ny: d => d >= d8('2026-12-20') && d <= d8('2027-01-10'),
+  win: d => d >= d8('2027-01-11') && d < d8('2027-04-01'),
+  any: () => true,
+};
+function rank(a) {
+  return TOURS.map(t => {
+    const deps = upcoming.filter(x => x.tour === t.id && x.seats > 0);
+    const hit = deps.filter(x => WHEN[a.when](d8(x.date)));
+    const dep = hit[0] || deps[0] || null;
+    let s = 0; const why = [];
+    if (a.when === 'any') s += 3; else if (hit.length) s += 4; else s -= 4;
+    if (dep && (a.when === 'any' || hit.length)) why.push(`Вылет ${fmtLong(dep.date)}, ${dep.seats <= 4 ? 'осталось ' : 'свободно '}${seats(dep.seats)}`);
+    if (t.who.includes(a.who)) { s += 3; why.push(t.whoWhy[a.who]); } else s -= 2;
+    if (a.budget === 'low') {
+      if (t.price <= 110000) { s += 3; why.push('Укладывается в бюджет: ' + rub(t.price)); } else s -= Math.ceil((t.price - 110000) / 12000);
+    } else if (a.budget === 'mid') {
+      if (t.price > 110000 && t.price <= 150000) { s += 3; why.push('По вашему бюджету: ' + rub(t.price)); }
+      else if (t.price <= 110000) { s += 2; why.push('Даже дешевле бюджета: ' + rub(t.price)); } else s -= 1;
+    } else {
+      if (t.price >= 139000) { s += 3; why.push('Один из самых насыщенных маршрутов'); } else s += 1;
+    }
+    why.push('Погода: ' + t.weather);
+    return {t, s, dep, why: why.slice(0, 4), pct: Math.max(58, Math.min(98, Math.round(66 + s * 3.2)))};
+  }).sort((x, y) => y.s - x.s || x.t.price - y.t.price);
+}
+function renderQuiz() {
+  $('#qzSteps').innerHTML = QUIZ.map((_, i) => `<i class="${i <= QZ.step ? 'on' : ''}"></i>`).join('');
+  const body = $('#qzBody');
+  if (QZ.step < QUIZ.length) {
+    const q = QUIZ[QZ.step];
+    body.innerHTML = `<div class="qz-anim">
+      <p class="eyebrow">Вопрос ${QZ.step + 1} из ${QUIZ.length}</p>
+      <h2 class="qz-q" id="qzTitle">${esc(q.q)}</h2>
+      <div class="qz-opts">${q.opts.map(([k, l, h]) => `<button class="qz-opt${QZ.ans[q.key] === k ? ' sel' : ''}" type="button" data-k="${k}">${esc(l)}${h ? `<small>${esc(h)}</small>` : ''}</button>`).join('')}</div>
+      ${QZ.step ? '<button class="qz-back" type="button" data-qback>← Назад</button>' : ''}
+    </div>`;
+    return;
+  }
+  body.innerHTML = `<div class="thinking"><div class="radar">${PLANE}</div><p id="qzTitle">Подбираю тур…</p></div>`;
+  setTimeout(() => {
+    if (QZ.step < QUIZ.length) return;
+    const r = rank(QZ.ans), top = r[0];
+    r.forEach((x, i) => { if (i && x.pct >= r[i - 1].pct) x.pct = r[i - 1].pct - 2 - i; });
+    body.innerHTML = `<div class="qz-anim">
+      <p class="eyebrow">Ваш тур</p>
+      <h2 class="qz-q" id="qzTitle">${esc(top.t.country)}, ${esc(top.t.short)}</h2>
+      <div class="res-card"><img src="${top.t.cover}" alt="" style="object-position:${top.t.pos}"><span class="match">Совпадение ${top.pct}%</span></div>
+      <p class="res-title">${esc(top.t.title)}</p>
+      <p class="res-sub">${top.t.days} ${plural(top.t.days, ['день', 'дня', 'дней'])} · от ${rub(top.t.price)} за человека</p>
+      <ul class="why">${top.why.map(w => `<li>${esc(w)}</li>`).join('')}</ul>
+      <div class="res-actions">
+        <button class="btn btn-signal" type="button" data-res="${top.t.id}" data-dep="${top.dep ? upcoming.indexOf(top.dep) : ''}">Открыть тур ${ARROW}</button>
+        <button class="btn btn-ghost" type="button" data-qrestart>Пройти ещё раз</button>
+      </div>
+      <div class="also"><p>Ещё подойдут</p><div class="also-row">${r.slice(1, 3).map(x => `<button type="button" data-res="${x.t.id}" data-dep="${x.dep ? upcoming.indexOf(x.dep) : ''}"><img src="${x.t.cover}" alt="">${esc(x.t.short)} <em>${x.pct}%</em></button>`).join('')}</div></div>
+    </div>`;
+  }, reduce ? 50 : 1300);
+}
+function openQuiz() {
+  QZ.step = 0; QZ.ans = {};
+  renderQuiz();
+  const ov = $('#quizOv');
+  openLayer('quiz', () => showOv(ov), () => hideOv(ov));
+}
+$('#qzBody').addEventListener('click', e => {
+  const opt = e.target.closest('.qz-opt');
+  if (opt) {
+    const q = QUIZ[QZ.step];
+    QZ.ans[q.key] = opt.dataset.k;
+    $$('.qz-opt', $('#qzBody')).forEach(b => b.classList.toggle('sel', b === opt));
+    setTimeout(() => { QZ.step++; renderQuiz(); }, 230);
+    return;
+  }
+  if (e.target.closest('[data-qback]')) { QZ.step = Math.max(0, QZ.step - 1); renderQuiz(); return; }
+  if (e.target.closest('[data-qrestart]')) { QZ.step = 0; QZ.ans = {}; renderQuiz(); return; }
+  const res = e.target.closest('[data-res]');
+  if (res) openTour(res.dataset.res, res.dataset.dep === '' ? null : Number(res.dataset.dep), true);
+});
+
+/* ---------- stories viewer ---------- */
+const SV = {g: 0, f: 0, el: $('#st'), frame: $('#stFrame')};
+function openStories(g) {
+  SV.g = g; SV.f = 0;
+  openLayer('stories', () => { SV.el.hidden = false; void SV.el.offsetHeight; SV.el.classList.add('show'); showFrame(); },
+    () => { SV.el.classList.remove('show', 'paused', 'loading'); $('#stBars').innerHTML = ''; setTimeout(() => { if (!SV.el.classList.contains('show')) SV.el.hidden = true; }, 240); });
+}
+function showFrame() {
+  const s = STORIES[SV.g], fr = s.frames[SV.f];
+  markSeen(s.id);
+  $('#stBars').innerHTML = s.frames.map((_, i) => `<span class="st-bar${i < SV.f ? ' done' : ''}"><i></i></span>`).join('');
+  $('#stAva').src = s.thumb;
+  $('#stName').textContent = s.label;
+  const media = $('#stMedia');
+  media.innerHTML = fr.img
+    ? `<img src="${fr.img}" alt="">`
+    : `<div class="st-txt ${fr.bg || ''}"><span>${esc(fr.tag || '')}</span><p>${esc(fr.text)}</p></div>`;
+  $('#stCap').textContent = fr.img ? (fr.cap || '') : '';
+  const cta = $('#stCta');
+  cta.hidden = !s.tour;
+  cta.dataset.tour = s.tour || '';
+  const bar = $$('#stBars .st-bar')[SV.f];
+  const run = () => { if (!bar.isConnected) return; bar.classList.add('run'); bar.firstElementChild.addEventListener('animationend', () => { if (bar.isConnected) next(); }, {once: true}); };
+  const img = media.querySelector('img');
+  if (img && !img.complete) {
+    SV.el.classList.add('loading');
+    const done = () => { if (bar.isConnected) SV.el.classList.remove('loading'); run(); };
+    img.addEventListener('load', done, {once: true});
+    img.addEventListener('error', done, {once: true});
+  } else { SV.el.classList.remove('loading'); run(); }
+  const nx = s.frames[SV.f + 1] || (STORIES[SV.g + 1] && STORIES[SV.g + 1].frames[0]);
+  if (nx && nx.img) { const p = new Image(); p.src = nx.img; }
+}
+function next() {
+  if (!SV.el.classList.contains('show')) return;
+  const s = STORIES[SV.g];
+  if (SV.f < s.frames.length - 1) SV.f++;
+  else if (SV.g < STORIES.length - 1) { SV.g++; SV.f = 0; }
+  else { closeLayer('stories'); return; }
+  showFrame();
+}
+function prev() {
+  if (SV.f > 0) SV.f--;
+  else if (SV.g > 0) { SV.g--; SV.f = 0; }
+  showFrame();
+}
+let pDown = null, holdT = 0;
+SV.frame.addEventListener('pointerdown', e => {
+  if (e.target.closest('button')) return;
+  pDown = {x: e.clientX, y: e.clientY, held: false};
+  holdT = setTimeout(() => { if (pDown) { pDown.held = true; SV.el.classList.add('paused'); } }, 220);
+});
+SV.frame.addEventListener('pointermove', e => {
+  if (!pDown) return;
+  const dy = e.clientY - pDown.y;
+  if (dy > 10) { clearTimeout(holdT); SV.el.classList.add('paused'); SV.frame.style.transform = `translateY(${dy * .6}px) scale(${Math.max(.88, 1 - dy / 1800)})`; }
+});
+function pointerEnd(e, cancelled) {
+  if (!pDown) return;
+  clearTimeout(holdT);
+  const {x, y, held} = pDown; pDown = null;
+  SV.frame.style.transform = '';
+  SV.el.classList.remove('paused');
+  if (cancelled) return;
+  const dy = e.clientY - y;
+  if (dy > 90) { closeLayer('stories'); return; }
+  if (held || Math.abs(dy) > 10 || Math.abs(e.clientX - x) > 30) return;
+  const r = SV.frame.getBoundingClientRect();
+  if (e.clientX - r.left < r.width * .3) prev(); else next();
+}
+SV.frame.addEventListener('pointerup', e => pointerEnd(e, false));
+SV.frame.addEventListener('pointercancel', e => pointerEnd(e, true));
+SV.frame.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (SV.el.hidden || !SV.el.classList.contains('show')) return;
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+document.addEventListener('visibilitychange', () => SV.el.classList.toggle('paused', document.hidden));
+$('#stCta').addEventListener('click', e => { const id = e.currentTarget.dataset.tour; if (id) openTour(id, null, true); });
+
+/* ---------- wiring ---------- */
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-quiz]')) { openQuiz(); return; }
+  const st = e.target.closest('[data-story]');
+  if (st) { openStories(Number(st.dataset.story)); return; }
+  const row = e.target.closest('.brow');
+  if (row) { const d = upcoming[Number(row.dataset.dep)]; openTour(d.tour, Number(row.dataset.dep)); return; }
+  const chip = e.target.closest('[data-month]');
+  if (chip) { boardMonth = chip.dataset.month; boardAll = false; $$('#monthChips .chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip))); renderBoard(true); return; }
+  const pass = e.target.closest('.pass');
+  if (pass) { openTour(pass.dataset.tour); return; }
+});
+$('#boardMore').addEventListener('click', () => { boardAll = true; renderBoard(true); });
+
+const bar = $('#bar');
+window.addEventListener('scroll', () => bar.classList.toggle('scrolled', window.scrollY > 6), {passive: true});
+const tabs = $$('.tab[data-nav]');
+const navIo = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) tabs.forEach(t => t.classList.toggle('on', t.dataset.nav === en.target.id));
+}), {rootMargin: '-40% 0px -55% 0px'});
+['board', 'tours', 'about'].forEach(id => navIo.observe(document.getElementById(id)));
+const boardIo = new IntersectionObserver(es => {
+  if (es.some(en => en.isIntersecting)) { renderBoard(true); boardIo.disconnect(); }
+}, {threshold: .35});
+
+renderStoriesRow();
+renderChips();
+renderBoard(false);
+renderPasses();
+tickClock();
+setInterval(tickClock, 20000);
+boardIo.observe($('.board'));
+})();
+</script>
+</body>
+</html>
